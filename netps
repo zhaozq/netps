@@ -1,0 +1,19 @@
+#!/home/zhaozq/soft/bin/perl
+
+use 5.010;
+
+open NET, "-|", "netstat -e";
+
+while(<NET>){
+    my $tmp = $_;
+    my $mark = true;
+
+    foreach(@ARGV){
+        $mark = undef and last
+            unless $tmp =~ /$_/
+    }
+
+    print if $mark;
+}
+
+close NET;
